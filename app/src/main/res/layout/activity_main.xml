@@ -1,0 +1,45 @@
+<!-- activity_main.xml -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/referenceInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter reference text"
+            android:minHeight="48dp"
+            android:text="
+            Catherine McDowell is an old woman who dedicates her life to animals. When she retired she decided to take care of abandoned pets. She could buy an old house, renovate it and she started bringing street cats and dogs to it.\n\n
+Many people can help her to clean the house, feed the animals and walk the dogs. The house is near the beach, so the dogs can swim and play at the beach.\n\n
+Some people can give her donations because it isn’t cheap to support more than 256 pets.\n\n
+We can do many things to improve the world we live in and Mrs. McDowell is an inspiration to all people who want to help. " />
+
+        <EditText
+            android:id="@+id/questionInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter the question"
+            android:minHeight="48dp"
+            android:text="" />
+
+        <Button
+            android:id="@+id/getAnswerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get Answer" />
+
+        <TextView
+            android:id="@+id/answerOutput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:selectAllOnFocus="true"
+            android:textIsSelectable="true"
+            android:textSize="20sp" />
+    </LinearLayout>
+</layout>
