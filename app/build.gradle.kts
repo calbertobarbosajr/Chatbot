@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.calberto_barbosa_jr.chatbotwithbert"
-    compileSdk = 35
+    namespace = "com.calberto_barbosa_jr.chatbot"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.calberto_barbosa_jr.chatbotwithbert"
+        applicationId = "com.calberto_barbosa_jr.chatbot"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -33,12 +33,6 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-
-
-    buildFeatures {
-        dataBinding = true
-    }
-    viewBinding { enable = true }
 }
 
 dependencies {
@@ -51,9 +45,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation ("org.tensorflow:tensorflow-lite:2.9.0")
-    implementation ("org.tensorflow:tensorflow-lite-support:0.3.1")
-    implementation ("org.tensorflow:tensorflow-lite-metadata:0.3.0")
-    implementation ("org.tensorflow:tensorflow-lite-task-text:0.4.4")
 }
