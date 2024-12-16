@@ -13,9 +13,9 @@ import com.calberto_barbosa_jr.chatbot.databinding.ActivityMainBinding
 import org.tensorflow.lite.task.text.qa.QuestionAnswerer
 import org.tensorflow.lite.task.text.qa.BertQuestionAnswerer
 
-class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+
+class MainActivity : AppCompatActivity() {
     private lateinit var questionInput: EditText
     private lateinit var responseOutput: TextView
     private lateinit var askButton: Button
@@ -23,14 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        setContentView(R.layout.activity_main)
 
         questionInput = findViewById(R.id.questionInput)
         responseOutput = findViewById(R.id.responseOutput)
@@ -80,9 +73,12 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Obter a resposta
+            // Obter a resposta do modelo
             val answers = qaClient!!.answer(context, question)
-            val bestAnswer = answers.firstOrNull()?.text ?: "Desculpe, não sei a resposta."
+
+            // Processar a melhor resposta
+            val bestAnswer = answers.firstOrNull()?.text?.let { postProcessAnswer(it) }
+                ?: "Desculpe, não sei a resposta para isso."
             responseOutput.text = bestAnswer
         }
     }
@@ -92,5 +88,26 @@ class MainActivity : AppCompatActivity() {
      */
     private fun preprocessQuestion(question: String): String {
         return if (!question.endsWith("?")) "$question?" else question
+    }
+
+    /**
+     * Pós-processa a resposta para remover partes irrelevantes.
+     * - Remove palavras soltas no final da resposta.
+     * - Garante que a resposta termine com um ponto final ou frase completa.
+     */
+    private fun postProcessAnswer(answer: String): String {
+        // Remove quebras de linha desnecessárias e espaços extras
+        var processed = answer.replace("\n", " ").trim()
+
+        // Tentar capturar apenas a primeira frase completa
+        val sentenceEnd = Regex("[.!?]")
+        val match = sentenceEnd.find(processed)
+
+        // Retorna apenas até o primeiro ponto final, exclamação ou interrogação
+        if (match != null) {
+            processed = processed.substring(0, match.range.last + 1).trim()
+        }
+
+        return processed
     }
 }
