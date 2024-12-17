@@ -1,51 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FAFAFA"
     tools:context=".MainActivity">
 
+    <!-- ScrollView para texto longo -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/questionInput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <EditText
+            android:id="@+id/editTextTexReference"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_background"
+            android:focusable="false"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:padding="12dp"
+            android:text="Bem-vindo à Nossa Pizzaria! \n
+                Estamos prontos para tornar seu dia mais saboroso! \n\n
+
+                Horário de Funcionamento: \n
+                Loja: das 9h às 18h. \n
+                Entregas: das 9h às 22h. \n
+
+                Serviço de Entrega: \n
+                Levamos nossas deliciosas pizzas até você! Consulte o preço da entrega para sua região ao realizar o pedido. \n\n
+
+                Nossas Pizzas \n
+                1. Calabresa custa R$ 42,00 \n
+                Uma clássica e irresistível escolha que conquista fãs no mundo inteiro. Composta por calabresa e cebola (em algumas regiões, também leva queijo), representa mais de 30% dos pedidos! \n\n
+
+                2. Portuguesa – Preço R$ 40,00 \n
+                Uma explosão de sabores com ovos, cebola, azeitona, ervilha, queijo e presunto. É a segunda pizza mais amada pelos brasileiros! \n\n
+
+                3. Marguerita – R$ 50,00 \n
+                Um ícone italiano com um toque de simplicidade: molho, muçarela, tomate e manjericão. Perfeita para quem prefere opções sem carne. \n\n
+
+                Bebidas: \n
+                As bebidas são vendidas separadamente, oferecendo uma grande variedade para acompanhar sua pizza favorita. Escolha entre refrigerantes, sucos e muito mais! \n\n\
+
+                Faça seu pedido agora e aproveite os sabores que você ama. Estamos ansiosos para atender você!
+"
+            android:textColor="#333333"
+            android:textSize="13sp" />
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Campo de entrada de pergunta -->
     <EditText
         android:id="@+id/questionInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:hint="Faça sua pergunta aqui"
-        android:minHeight="48dp"
-        android:text="O que tem na pizza Portuguesa?"
-        app:layout_constraintBottom_toTopOf="@+id/askButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <Button
-        android:id="@+id/askButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Perguntar"
-        app:layout_constraintBottom_toTopOf="@+id/responseOutput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionInput" />
-
-    <TextView
-        android:id="@+id/responseOutput"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:paddingTop="16dp"
-        android:textSize="20sp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/edittext_background"
+        android:hint="Faça sua pergunta aqui"
+        android:minHeight="48dp"
+        android:padding="12dp"
+        android:text="Qual é o preço da pizza Portuguesa?"
+        android:textColor="#333333"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/askButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Botão de Pergunta -->
+    <Button
+        android:id="@+id/askButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#1976D2"
+        android:text="Perguntar"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/responseOutput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Resposta -->
+    <TextView
+        android:id="@+id/responseOutput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:padding="12dp"
+        android:background="@drawable/textview_background"
+        android:text="Resposta aqui..."
+        android:textColor="#333333"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/askButton" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

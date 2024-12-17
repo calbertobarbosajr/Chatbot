@@ -52,4 +52,5 @@ dependencies {
     implementation ("org.tensorflow:tensorflow-lite-support:0.4.3")
     implementation ("org.tensorflow:tensorflow-lite-metadata:0.3.0")
     implementation ("org.tensorflow:tensorflow-lite-task-text:0.4.4")
+    implementation ("com.google.android.material:material:1.8.0")
 }

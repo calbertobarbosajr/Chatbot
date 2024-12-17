@@ -5,17 +5,18 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.activity.enableEdgeToEdge
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.calberto_barbosa_jr.chatbot.databinding.ActivityMainBinding
 import org.tensorflow.lite.task.text.qa.QuestionAnswerer
 import org.tensorflow.lite.task.text.qa.BertQuestionAnswerer
-
-
+import com.calberto_barbosa_jr.chatbot.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
     private lateinit var questionInput: EditText
     private lateinit var responseOutput: TextView
     private lateinit var askButton: Button
@@ -23,11 +24,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        enableEdgeToEdge()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
-        questionInput = findViewById(R.id.questionInput)
-        responseOutput = findViewById(R.id.responseOutput)
-        askButton = findViewById(R.id.askButton)
+        questionInput = binding.questionInput
+        responseOutput = binding.responseOutput
+        askButton = binding.askButton
 
         // Tenta carregar o modelo ALBERT
         try {
@@ -67,6 +75,7 @@ class MainActivity : AppCompatActivity() {
                 Faça seu pedido agora e aproveite os sabores que você ama. Estamos ansiosos para atender você!
             """.trimIndent()
 
+
             // Processa a pergunta e o contexto
             if (qaClient == null) {
                 responseOutput.text = "Modelo não carregado. Verifique os logs para mais detalhes."
@@ -74,7 +83,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             // Obter a resposta do modelo
-            val answers = qaClient!!.answer(context, question)
+            //val answers = qaClient!!.answer(context, question)
+            var textReference = binding.editTextTexReference.text.toString()
+            val answers = qaClient!!.answer( textReference , question)
 
             // Processar a melhor resposta
             val bestAnswer = answers.firstOrNull()?.text?.let { postProcessAnswer(it) }
